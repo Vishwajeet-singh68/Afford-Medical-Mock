@@ -12,7 +12,7 @@ export default function Wx() {
     setL(true);
     setE(null);
     
-    const u = `https://open-weather13.p.rapidapi.com/city/${encodeURIComponent(q)}/IN`;
+    const u = `https://open-weather13.p.rapidapi.com/city/${q}/IN`;
     const o = {
       method: 'GET',
       headers: {
@@ -30,7 +30,6 @@ export default function Wx() {
       
       const j = await r.json();
       setD(j);
-      setL(false);
     } catch (x) {
       setE(x.message || 'Error fetching weather data');
       console.error('Error:', x);
@@ -60,88 +59,113 @@ export default function Wx() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center text-blue-800">India Weather App</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-900 to-indigo-800 p-4">
+      <div className="w-full max-w-lg bg-black bg-opacity-40 backdrop-blur-lg rounded-3xl shadow-2xl p-8 text-white">
+        <h1 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500 mb-6">MeteorMaster</h1>
         
-        <div className="flex">
+        <div className="relative mb-8">
           <input
             type="text"
             value={q}
             onChange={(v) => setQ(v.target.value)}
             onKeyPress={h}
-            placeholder="Enter city name (India)"
-            className="flex-1 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Search any Indian city..."
+            className="w-full p-4 pl-6 pr-12 bg-transparent border-2 border-purple-500 rounded-full focus:outline-none focus:border-pink-500 text-white placeholder-gray-300"
           />
           <button 
             onClick={f}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg transition-colors"
+            className="absolute right-2 top-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center"
             disabled={l}
           >
-            {l ? 'Loading...' : 'Search'}
+            {l ? "⏳" : "🔍"}
           </button>
         </div>
         
         {e && (
-          <div className="p-4 bg-red-100 text-red-700 rounded-lg">
-            {e}
+          <div className="p-4 bg-red-900 bg-opacity-50 rounded-xl border border-red-500 text-center mb-6">
+            ❌ {e}
           </div>
         )}
         
         {d && !e && (
-          <div className="bg-blue-50 rounded-lg p-5 text-center">
-            <div className="text-lg text-gray-600">{g()}</div>
-            <h2 className="text-3xl font-bold mt-2">{d.name}</h2>
-            
-            <div className="flex justify-center items-center my-4">
-              {d.weather && d.weather[0] && (
-                <img 
-                  src={`http://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png`}
-                  alt="Weather icon"
-                  className="w-20 h-20"
-                />
-              )}
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h2 className="text-4xl font-bold">{d.name}</h2>
+                <p className="text-gray-300">{g()}</p>
+              </div>
               
               {d.main && (
-                <div className="text-5xl font-bold ml-4">
-                  {k(d.main.temp)}°C
+                <div className="text-6xl font-bold">
+                  {k(d.main.temp)}°
                 </div>
               )}
             </div>
             
-            {d.weather && d.weather[0] && (
-              <div className="text-xl capitalize">
-                {d.weather[0].description}
-              </div>
-            )}
-            
-            {d.main && (
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="bg-white p-3 rounded-lg shadow">
-                  <div className="text-gray-500">Feels Like</div>
-                  <div className="text-xl font-semibold">
+            <div className="flex items-center justify-between mb-8 bg-white bg-opacity-10 p-4 rounded-2xl">
+              {d.weather && d.weather[0] && (
+                <div className="flex items-center">
+                  <img 
+                    src={`http://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png`}
+                    alt="Weather icon"
+                    className="w-16 h-16"
+                  />
+                  <span className="text-xl capitalize">
+                    {d.weather[0].description}
+                  </span>
+                </div>
+              )}
+              
+              {d.main && (
+                <div className="text-right text-black">
+                  <div className="">Feels like</div>
+                  <div className="text-2xl font-semibold">
                     {k(d.main.feels_like)}°C
                   </div>
                 </div>
-                
-                <div className="bg-white p-3 rounded-lg shadow">
-                  <div className="text-gray-500">Humidity</div>
-                  <div className="text-xl font-semibold">
+              )}
+            </div>
+            
+            {d.main && (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gradient-to-br from-purple-800 to-purple-900 p-4 rounded-2xl">
+                  <div className="flex items-center mb-2">
+                    <span className="text-2xl mr-2">💧</span>
+                    <span className="text-gray-300">Humidity</span>
+                  </div>
+                  <div className="text-2xl font-bold ml-8">
                     {d.main.humidity}%
                   </div>
                 </div>
                 
-                <div className="bg-white p-3 rounded-lg shadow">
-                  <div className="text-gray-500">Wind Speed</div>
-                  <div className="text-xl font-semibold">
+                <div className="bg-gradient-to-br from-indigo-800 to-indigo-900 p-4 rounded-2xl">
+                  <div className="flex items-center mb-2">
+                    <span className="text-2xl mr-2">💨</span>
+                    <span className="text-gray-300">Wind</span>
+                  </div>
+                  <div className="text-2xl font-bold ml-8">
                     {d.wind ? `${d.wind.speed} m/s` : 'N/A'}
                   </div>
                 </div>
                 
-                <div className="bg-white p-3 rounded-lg shadow">
-                  <div className="text-gray-500">Pressure</div>
-                  <div className="text-xl font-semibold">
+                <div className="bg-gradient-to-br from-blue-800 to-blue-900 p-4 rounded-2xl">
+                  <div className="flex items-center mb-2">
+                    <span className="text-2xl mr-2">🧭</span>
+                    <span className="text-gray-300">Pressure</span>
+                  </div>
+                  <div className="text-2xl font-bold ml-8">
                     {d.main.pressure} hPa
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-br from-pink-800 to-pink-900 p-4 rounded-2xl">
+                  <div className="flex items-center mb-2">
+                    <span className="text-2xl mr-2">🌡️</span>
+                    <span className="text-gray-300">Max/Min</span>
+                  </div>
+                  <div className="text-2xl font-bold ml-8">
+                    {d.main.temp_max && d.main.temp_min ? 
+                      `${k(d.main.temp_max)}°/${k(d.main.temp_min)}°` : 'N/A'}
                   </div>
                 </div>
               </div>
@@ -150,8 +174,9 @@ export default function Wx() {
         )}
         
         {!d && !e && !l && (
-          <div className="text-center p-6 text-gray-500">
-            Search for a city in India to get weather information
+          <div className="text-center p-10 text-gray-300 flex flex-col items-center">
+            <span className="text-6xl mb-4">🌤️</span>
+            <p>Enter an Indian city to get the current weather</p>
           </div>
         )}
       </div>
