@@ -116,6 +116,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 
 ## 📞 Contact
-Your Name - [@yourusername](https://twitter.com/yourusername) - email@example.com
+Your Name - vishwajeet.singh_cs22@gla.ac.in
 
-Project Link: [https://github.com/yourusername/meteormaster](https://github.com/yourusername/meteormaster)
+Project Link: https://github.com/Vishwajeet-singh68/Afford-Medical-Mock/edit/main/README.md
