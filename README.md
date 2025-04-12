@@ -118,4 +118,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📞 Contact
 Your Name - vishwajeet.singh_cs22@gla.ac.in
 
-Project Link: https://github.com/Vishwajeet-singh68/Afford-Medical-Mock/edit/main/README.md
+Project Link: https://github.com/Vishwajeet-singh68/Afford-Medical-Mock/
